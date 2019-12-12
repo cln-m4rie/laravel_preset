@@ -8,10 +8,10 @@ services:
       - .env
     environment:
       - DB_CONNECTION=mysql
-      - DB_DATABASE=${DB_DATABASE}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=${DB_HOST}
+      - DB_DATABASE=main
+      - DB_USERNAME=user
+      - DB_PASSWORD=password
+      - DB_HOST=db
       - DB_PORT=3306
     volumes:
       - .:/var/www/html

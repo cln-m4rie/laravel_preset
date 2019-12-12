@@ -13,3 +13,4 @@ yarn-error.log
 *.log
 /mysql/*
 !/mysql/.gitkeep
+.idea/*

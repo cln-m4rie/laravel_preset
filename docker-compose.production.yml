@@ -2,6 +2,7 @@ version: "3"
 
 services:
   app:
+    container_name: app
     build: ./docker/app
     env_file:
       - .env
@@ -17,6 +18,7 @@ services:
     ports:
       - "9000:9000"
   nginx:
+    container_name: nginx
     build: ./docker/nginx
     ports:
       - "80:80"
