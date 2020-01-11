@@ -28,6 +28,7 @@ services:
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./logs/nginx:/var/log/nginx
+      - ./public:/var/www/html/public
   db:
     container_name: db
     image: mysql:5.7
