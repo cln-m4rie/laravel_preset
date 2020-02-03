@@ -1,7 +1,7 @@
-FROM nginx:alpine
+FROM nginx:stable
 
-RUN apk --no-cache update && \
-    apk --no-cache upgrade
+RUN apt-get update -y && \
+    apt-get upgrade -y
 
 RUN mkdir -p /var/www/html
 RUN chown -R www-data:www-data /var/www/html
