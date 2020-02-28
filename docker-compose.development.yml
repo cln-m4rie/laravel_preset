@@ -2,10 +2,8 @@ version: "3"
 
 services:
   app:
-    container_name: app
+    container_name: laravel_app
     build: ./docker/app
-    env_file:
-      - .env
     environment:
       - DB_CONNECTION=mysql
       - DB_DATABASE=main
@@ -13,24 +11,29 @@ services:
       - DB_PASSWORD=password
       - DB_HOST=db
       - DB_PORT=3306
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     volumes:
       - .:/var/www/html
     ports:
       - "9000:9000"
+    depends_on:
+      - db
+      - redis
   nginx:
-    container_name: nginx
+    container_name: laravel_nginx
     build: ./docker/nginx
     ports:
-      - "80:80"
+      - "8000:80"
       - "443:443"
     depends_on:
       - app
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./logs/nginx:/var/log/nginx
-      - ./public:/var/www/html/public
+      - ./:/var/www/html
   db:
-    container_name: db
+    container_name: laravel_db
     image: mysql:5.7
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
@@ -43,5 +46,10 @@ services:
       - MYSQL_DATABASE=main
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password
-      - MYSQL_ROOT_HOST="%"
-      - TZ="Asia/Tokyo"
+      - MYSQL_ROOT_HOST=%
+      - TZ=Asia/Tokyo
+  redis:
+    container_name: laravel_redis
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
