@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,11 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => 'guest:api'], function () {
-    Route::post('/login', 'Api\AuthController@login');
+Route::group(['middleware' => 'guest:api'], function (): void {
+    Route::post('/login', 'Api\AuthController@login')->name('api.login');
 });
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'auth:api'], function (): void {
     Route::get('/me', 'Api\AuthController@me');
 });
 
